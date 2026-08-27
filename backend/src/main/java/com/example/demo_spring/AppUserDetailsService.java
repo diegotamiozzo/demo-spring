@@ -23,6 +23,7 @@ public class AppUserDetailsService implements UserDetailsService {
             .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + email));
 
         return org.springframework.security.core.userdetails.User.builder()
+            .username(user.getName())
             .username(user.getEmail())
             .password(user.getPassword())
             .authorities(List.of(new SimpleGrantedAuthority("ROLE_USER")))

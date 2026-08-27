@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 
 export function SignupPage() {
   const { signUp } = useAuth();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -14,6 +15,10 @@ export function SignupPage() {
     e.preventDefault();
     setError("");
 
+    if (!name.trim()) {
+      setError("O nome é obrigatório.");
+      return;
+    }
     if (password !== confirm) {
       setError("As senhas não coincidem.");
       return;
@@ -25,7 +30,7 @@ export function SignupPage() {
 
     setLoading(true);
     try {
-      await signUp(email, password);
+      await signUp(email, password, name);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Falha ao criar conta. Tente novamente.");
     } finally {
@@ -44,6 +49,20 @@ export function SignupPage() {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
+            <label className="form-label" htmlFor="name">Nome</label>
+            <input
+              id="name"
+              type="text"
+              className="form-input"
+              placeholder="Seu Nome"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              autoComplete="name"
+            />
+          </div>
+
+          <div className="form-group">
             <label className="form-label" htmlFor="email">E-mail</label>
             <input
               id="email"
@@ -56,6 +75,7 @@ export function SignupPage() {
               autoComplete="email"
             />
           </div>
+
           <div className="form-group">
             <label className="form-label" htmlFor="password">Senha</label>
             <input
@@ -69,6 +89,7 @@ export function SignupPage() {
               autoComplete="new-password"
             />
           </div>
+
           <div className="form-group">
             <label className="form-label" htmlFor="confirm">Confirmar senha</label>
             <input
@@ -82,6 +103,7 @@ export function SignupPage() {
               autoComplete="new-password"
             />
           </div>
+
           <button type="submit" className="btn-primary" disabled={loading}>
             {loading ? "Criando..." : "Criar conta"}
           </button>

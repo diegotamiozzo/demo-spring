@@ -38,51 +38,13 @@ export function DashboardPage() {
       </div>
 
       <div className="welcome-banner">
-        <h2>Olá! 👋</h2>
+        <h2>Olá, <strong>{user?.name}</strong>!</h2>
         <p>
-          Conectado como <strong>{user?.email}</strong>. Este é o seu painel genérico —
-          explore as métricas e atividades abaixo.
+          Conectado como <strong>{user?.email}</strong>. Este é o seu painel genérico, 
+          comece sua aplicação por aqui!
         </p>
       </div>
 
-      <div className="stats-grid">
-        {data.stats.map((s) => (
-          <div key={s.label} className="stat-card">
-            <div className="stat-label">{s.label}</div>
-            <div className="stat-value">{s.value}</div>
-            <div className={`stat-change ${s.positive ? "positive" : "negative"}`}>
-              {s.change} este mês
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="content-grid">
-        <div className="panel">
-          <h3 className="panel-title">Atividade semanal</h3>
-          <div className="bar-chart">
-            {data.chart.map((d) => (
-              <div key={d.day} className="bar-col">
-                <div className="bar" style={{ height: `${d.height}%` }} />
-                <span className="bar-label">{d.day}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="panel">
-          <h3 className="panel-title">Atividades recentes</h3>
-          {data.activities.map((a, i) => (
-            <div key={i} className="activity-item">
-              <div className="activity-dot" style={{ background: a.color }} />
-              <div>
-                <div className="activity-text">{a.text}</div>
-                <div className="activity-time">{a.time}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }

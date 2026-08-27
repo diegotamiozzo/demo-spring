@@ -29,29 +29,30 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody Map<String, String> body, HttpServletRequest request) {
+        String name = body.get("name");
         String email = body.get("email");
         String password = body.get("password");
 
-        if (email == null || email.isBlank() || password == null || password.isBlank()) {
-            return ResponseEntity.badRequest().body(Map.of("error", "E-mail e senha são obrigatórios."));
+        if (name == null || name.isBlank() || email == null || email.isBlank() || password == null || password.isBlank()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Nome, e-mail e senha são obrigatórios."));
         }
-        if (password.length() < 6) {
-            return ResponseEntity.badRequest().body(Map.of("error", "A senha deve ter no mínimo 6 caracteres."));
-        }
-        if (userRepository.existsByEmail(email)) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Este e-mail já está cadastrado."));
+
+        if (userRepository.findByEmail(email).isPresent()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "E-mail já cadastrado."));
         }
 
         AppUser user = new AppUser();
+        user.setName(name);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
 
         authenticateAndCreateSession(email, password, request);
-        return ResponseEntity.ok(Map.of("email", email));
+
+        return ResponseEntity.ok(Map.of("email", email, "name", name));
     }
 
-    @PostMapping("/login")
+@PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> body, HttpServletRequest request) {
         String email = body.get("email");
         String password = body.get("password");
@@ -62,7 +63,12 @@ public class AuthController {
 
         try {
             authenticateAndCreateSession(email, password, request);
-            return ResponseEntity.ok(Map.of("email", email));
+            
+            // Busca o usuário para recuperar o nome salvo no banco
+            AppUser user = userRepository.findByEmail(email).orElse(null);
+            String name = user != null ? user.getName() : "";
+
+            return ResponseEntity.ok(Map.of("email", email, "name", name));
         } catch (Exception e) {
             return ResponseEntity.status(401).body(Map.of("error", "E-mail ou senha inválidos."));
         }
@@ -78,13 +84,19 @@ public class AuthController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/me")
+@GetMapping("/me")
     public ResponseEntity<?> me() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated() || "anonymousUser".equals(auth.getName())) {
             return ResponseEntity.status(401).body(Map.of("error", "Não autenticado."));
         }
-        return ResponseEntity.ok(Map.of("email", auth.getName()));
+        
+        // Busca o usuário logado no banco para retornar o nome correto
+        String email = auth.getName();
+        AppUser user = userRepository.findByEmail(email).orElse(null);
+        String name = user != null ? user.getName() : "";
+
+        return ResponseEntity.ok(Map.of("email", email, "name", name));
     }
 
     private void authenticateAndCreateSession(String email, String password, HttpServletRequest request) {

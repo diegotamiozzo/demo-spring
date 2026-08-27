@@ -27,6 +27,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 
 export interface AuthUser {
   email: string;
+  name?: string;
 }
 
 export interface DashboardData {
@@ -43,10 +44,10 @@ export const api = {
     });
   },
 
-  async signup(email: string, password: string): Promise<AuthUser> {
+  async signup(email: string, password: string, name: string): Promise<AuthUser> {
     return request<AuthUser>("/auth/signup", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, name }),
     });
   },
 
