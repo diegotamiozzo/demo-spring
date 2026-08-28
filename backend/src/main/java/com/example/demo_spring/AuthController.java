@@ -106,4 +106,5 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(auth);
         request.getSession(true).setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
     }
+    
 }

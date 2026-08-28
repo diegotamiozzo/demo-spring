@@ -53,6 +53,9 @@ Aplicação full stack de exemplo com **autenticação** (cadastro, login, logou
 │   ├── 📄 mvnw.cmd
 │   └── ⚙️ pom.xml
 ├── 📁 frontend
+│   ├── 📁 public
+│   │   ├── 🖼️ dado.png
+│   │   └── 🖼️ logo.png
 │   ├── 📁 src
 │   │   ├── 📁 components
 │   │   │   └── 📄 Layout.tsx
@@ -63,7 +66,9 @@ Aplicação full stack de exemplo com **autenticação** (cadastro, login, logou
 │   │   ├── 📁 pages
 │   │   │   ├── 📄 DashboardPage.tsx
 │   │   │   ├── 📄 LoginPage.tsx
-│   │   │   └── 📄 SignupPage.tsx
+│   │   │   ├── 📄 SettingsPage.tsx
+│   │   │   ├── 📄 SignupPage.tsx
+│   │   │   └── 📄 WelcomePage.tsx
 │   │   ├── 📁 styles
 │   │   │   └── 🎨 global.css
 │   │   ├── 📄 App.tsx
@@ -73,7 +78,6 @@ Aplicação full stack de exemplo com **autenticação** (cadastro, login, logou
 │   ├── ⚙️ package-lock.json
 │   ├── ⚙️ package.json
 │   ├── ⚙️ tsconfig.json
-│   ├── 📄 tsconfig.tsbuildinfo
 │   └── 📄 vite.config.ts
 ├── ⚙️ .gitattributes
 ├── ⚙️ .gitignore

@@ -18,7 +18,7 @@ export function SettingsPage() {
         <button 
           type="button" 
           className="btn-primary" 
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/dashboard")}
         >
           Voltar ao Painel
         </button>

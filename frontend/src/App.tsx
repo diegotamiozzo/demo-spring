@@ -1,28 +1,32 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import { WelcomePage } from "./pages/WelcomePage";
 import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
 import { DashboardPage } from "./pages/DashboardPage";
-import { SettingsPage } from "./pages/SettingsPage"; // <-- 1. Importe a página de configurações
+import { SettingsPage } from "./pages/SettingsPage";
 import { Layout } from "./components/Layout";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   if (loading) return null;
-  if (!user) return <Navigate to="/login" replace />;
+  if (!user) return <Navigate to="/" replace />;
   return <>{children}</>;
 }
 
 function PublicRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   if (loading) return null;
-  if (user) return <Navigate to="/" replace />;
+  if (user) return <Navigate to="/dashboard" replace />;
   return <>{children}</>;
 }
 
 function AppRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<WelcomePage />} />
+      <Route path="/welcome" element={<Navigate to="/" replace />} />
+
       <Route
         path="/login"
         element={
@@ -41,8 +45,8 @@ function AppRoutes() {
       />
       
       {/* Rotas Protegidas que utilizam o Layout */}
-      <Route
-        path="/"
+<Route
+        path="/dashboard"
         element={
           <ProtectedRoute>
             <Layout />
@@ -50,7 +54,7 @@ function AppRoutes() {
         }
       >
         <Route index element={<DashboardPage />} />
-        <Route path="settings" element={<SettingsPage />} /> {/* <-- 2. Adicionada a rota filha de settings */}
+        <Route path="settings" element={<SettingsPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

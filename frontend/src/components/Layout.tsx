@@ -33,7 +33,7 @@ export function Layout() {
           <span className="sidebar-logo-text">Optimize</span>
         </div>
         <nav>
-          <Link className="nav-item active" to="/">
+          <Link className="nav-item active" to="/dashboard">
             <span className="nav-icon">📊</span> Painel
           </Link>
         </nav>
@@ -56,11 +56,11 @@ export function Layout() {
 
               <div className="popover-divider" />
 
-              <button 
-                className="popover-item" 
+              <button
+                className="popover-item"
                 onClick={() => {
                   setMenuOpen(false);
-                  navigate("/settings");
+                  navigate("/dashboard/settings");
                 }}
               >
                 <span className="popover-icon">⚙️</span> Settings
@@ -72,8 +72,8 @@ export function Layout() {
             </div>
           )}
 
-          <div 
-            className="sidebar-user-trigger" 
+          <div
+            className="sidebar-user-trigger"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <div className="user-avatar">
