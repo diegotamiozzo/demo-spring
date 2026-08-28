@@ -29,10 +29,9 @@ export function Layout() {
     <div className="app-layout">
       <aside className="sidebar">
         <div className="sidebar-logo">
-          <div className="sidebar-logo-icon">A</div>
-          <span className="sidebar-logo-text">App</span>
+          <img src="/dado.png" alt="Dado" className="sidebar-logo-icon" />
+          <span className="sidebar-logo-text">Optimize</span>
         </div>
-
         <nav>
           <Link className="nav-item active" to="/">
             <span className="nav-icon">📊</span> Painel

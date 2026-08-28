@@ -25,9 +25,9 @@ export function LoginPage() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <div className="auth-logo">A</div>
-        <h1 className="auth-title">Bem-vindo de volta</h1>
-        <p className="auth-subtitle">Entre na sua conta para continuar</p>
+        <img src="/logo.png" alt="Logo" className="auth-logo" />
+        <h1 className="auth-title">Bem-vindo</h1>
+        <p className="auth-subtitle">Entre com suas credenciais</p>
 
         {error && <div className="auth-error">{error}</div>}
 
