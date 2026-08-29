@@ -41,7 +41,7 @@ export function SignupPage() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <div className="auth-logo">A</div>
+        <img src="/logo.png" alt="Logo" className="auth-logo" />
         <h1 className="auth-title">Criar conta</h1>
         <p className="auth-subtitle">Comece a usar a aplicação agora</p>
 

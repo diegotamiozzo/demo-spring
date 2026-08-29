@@ -23,7 +23,7 @@ export function WelcomePage() {
     <div className="auth-page">
       <div className="auth-card" style={{ maxWidth: "420px", width: "100%", padding: "32px" }}>
         <div style={{ textAlign: "center", marginBottom: "24px" }}>
-          <img src="/logo.png" alt="Logo" className="auth-logo" style={{ width: "64px", height: "64px", objectFit: "contain", marginBottom: "16px" }} />
+          <img src="/logo.png" alt="Logo" className="auth-logo" />
           <h1 className="auth-title" style={{ fontSize: "24px", fontWeight: 700, marginBottom: "8px" }}>Bem-vindo</h1>
           <p className="auth-subtitle" style={{ color: "#6c757d", fontSize: "14px" }}>Sistema inteligente de gestão e monitoramento</p>
         </div>
